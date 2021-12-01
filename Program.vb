@@ -4,8 +4,8 @@ Module Program
     Sub Main(args As String())
         Dim sw As New Stopwatch
         sw.Start()
-        Day01.Day01_main()
-        'Day02.Day02_main()
+        'Day01.Day01_main()
+        Day02.Day02_main()
         'Day03.Day03_main()
         'Day04.Day04_main()
         'Day05.Day05_main()
@@ -25,7 +25,7 @@ Module Program
         'Day19.Day19_main()
         'Day20.Day20_main()
         'Day21.Day21_main()
-        'Day22.Day22_main()1
+        'Day22.Day22_main()
         'Day23.Day23_main()
         'Day24.Day24_main()
         'Day25.Day25_main()

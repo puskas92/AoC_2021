@@ -1,33 +1,43 @@
 ﻿Module Day01
     Sub Day01_main()
+        Dim testinput = Day01_ReadInput("Day01\Day01_test01.txt")
+        Dim input = Day01_ReadInput("Day01\Day01_input.txt")
         'part1
-        Debug.Assert(Day01_Part1("Day01\Day01_test01.txt") = 0)
-        Console.WriteLine("Day01 Part1: " & Day01_Part1("Day01\Day01_input.txt"))
+        Debug.Assert(Day01_Part1(testinput) = 7)
+        Console.WriteLine("Day01 Part1: " & Day01_Part1(input))
 
         'part2
-        Debug.Assert(Day01_Part2("Day01\Day01_test01.txt") = 0)
-        Console.WriteLine("Day01 Part2: " & Day01_Part2("Day01\Day01_input.txt"))
+        Debug.Assert(Day01_Part2(testinput) = 5)
+        Console.WriteLine("Day01 Part2: " & Day01_Part2(input))
 
     End Sub
-    Function Day01_ReadInput(inputpath As String) As Object
+    Function Day01_ReadInput(inputpath As String) As List(Of Integer)
+        Dim result As New List(Of Integer)
         Dim sr As New IO.StreamReader(inputpath)
         While (Not sr.EndOfStream)
-
+            result.Add(Convert.ToInt32(sr.ReadLine))
         End While
 
-        Return Nothing
+        Return result
     End Function
 
 
-    Function Day01_Part1(inputpath As String) As Integer
-        Dim input = Day01_ReadInput(inputpath)
+    Function Day01_Part1(input As List(Of Integer)) As Integer
+        Dim increase As Integer = 0
+        For i = 1 To input.Count - 1
+            If input(i) > input(i - 1) Then increase += 1
+        Next
 
-        Return 0
+        Return increase
     End Function
 
-    Function Day01_Part2(inputpath As String) As Integer
-        Dim input = Day01_ReadInput(inputpath)
+    Function Day01_Part2(input As List(Of Integer)) As Integer
+        Dim newinput As New List(Of Integer)
 
-        Return 0
+        For i = 2 To input.Count - 1
+            newinput.Add(input(i) + input(i - 1) + input(i - 2))
+        Next
+
+        Return Day01_Part1(newinput)
     End Function
 End Module

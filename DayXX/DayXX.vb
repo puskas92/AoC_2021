@@ -1,11 +1,11 @@
 ﻿Module DayXX
     Sub DayXX_main()
         'part1
-        Debug.Assert(DayXX_Part1("DayXX\DayXX_testXX.txt") = 0)
+        Debug.Assert(DayXX_Part1("DayXX\DayXX_test01.txt") = 0)
         Console.WriteLine("DayXX Part1: " & DayXX_Part1("DayXX\DayXX_input.txt"))
 
         'part2
-        Debug.Assert(DayXX_Part2("DayXX\DayXX_testXX.txt") = 0)
+        Debug.Assert(DayXX_Part2("DayXX\DayXX_test01.txt") = 0)
         Console.WriteLine("DayXX Part2: " & DayXX_Part2("DayXX\DayXX_input.txt"))
 
     End Sub
