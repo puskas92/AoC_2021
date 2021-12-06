@@ -4,29 +4,44 @@
         Dim input = Day06_ReadInput("Day06\Day06_input.txt")
 
         'part1
-        Debug.Assert(Day06_Part1(testinput) = 0)
-        Console.WriteLine("Day06 Part1: " & Day06_Part1(input))
+        Debug.Assert(Day06_Part12(18, testinput) = 26)
+        Debug.Assert(Day06_Part12(80, testinput) = 5934)
+        Console.WriteLine("Day06 Part1: " & Day06_Part12(80, input))
 
         'part2
-        Debug.Assert(Day06_Part2(testinput) = 0)
-        Console.WriteLine("Day06 Part2: " & Day06_Part2(input))
+        Debug.Assert(Day06_Part12(256, testinput) = 26984457539)
+        Console.WriteLine("Day06 Part2: " & Day06_Part12(256, input))
 
     End Sub
-    Function Day06_ReadInput(inputpath As String) As Object
+    Function Day06_ReadInput(inputpath As String) As Dictionary(Of Integer, Int64) 'day, count
         Dim sr As New IO.StreamReader(inputpath)
-        While (Not sr.EndOfStream)
+        Dim line = sr.ReadLine
+        sr.Close()
 
-        End While
+        Dim input = line.Split(",").ToList.ConvertAll(Function(f) Convert.ToInt32(f))
 
-        Return Nothing
+        Dim output As New Dictionary(Of Integer, Int64)
+        For i = 0 To 8
+            output.Add(i, input.LongCount(Function(f) f = i))
+        Next
+
+        Return output
     End Function
 
 
-    Function Day06_Part1(input) As Integer
-        Return 0
-    End Function
+    Function Day06_Part12(days As Integer, input As Dictionary(Of Integer, Int64)) As Int64
+        Dim currentDay As New Dictionary(Of Integer, Int64)(input)
+        Dim nextDay As New Dictionary(Of Integer, Int64)
+        For i = 1 To days
+            For j = 0 To 7
+                nextDay.Add(j, currentDay(j + 1))
+            Next
+            nextDay.Add(8, currentDay(0))
+            nextDay(6) += currentDay(0)
+            currentDay = New Dictionary(Of Integer, Int64)(nextDay)
+            nextDay = New Dictionary(Of Integer, Int64)
+        Next
 
-    Function Day06_Part2(input) As Integer
-        Return 0
+        Return currentDay.Sum(Function(f) f.Value)
     End Function
 End Module

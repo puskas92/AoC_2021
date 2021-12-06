@@ -17,7 +17,7 @@
         While (Not sr.EndOfStream)
 
         End While
-
+        sr.Close()
         Return Nothing
     End Function
 

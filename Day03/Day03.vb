@@ -22,6 +22,7 @@
             Dim line = sr.ReadLine
             input.Add(line.ToString.ToList)
         End While
+        sr.Close()
 
         Return input
     End Function

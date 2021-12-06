@@ -34,7 +34,7 @@
         While (Not sr.EndOfStream)
             output.Add(New Day05_Segment(sr.ReadLine))
         End While
-
+        sr.Close()
         Return output
     End Function
 

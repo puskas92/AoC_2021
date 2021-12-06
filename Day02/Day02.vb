@@ -19,7 +19,7 @@
             Dim t As New Tuple(Of String, Integer)(line.Split(" ")(0), Convert.ToInt32(line.Split(" ")(1)))
             result.Add(t)
         End While
-
+        sr.Close()
         Return result
     End Function
 

@@ -17,7 +17,7 @@
         While (Not sr.EndOfStream)
             result.Add(Convert.ToInt32(sr.ReadLine))
         End While
-
+        sr.Close()
         Return result
     End Function
 

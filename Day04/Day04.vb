@@ -41,7 +41,7 @@
 
             output.Boards.Add(board)
         End While
-
+        sr.Close()
         Return output
     End Function
 
