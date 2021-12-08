@@ -21,6 +21,7 @@
         Dim input = line.Split(",").ToList.ConvertAll(Function(f) Convert.ToInt32(f))
 
         Dim output As New Dictionary(Of Integer, Int64)
+        Dim i As Integer
         For i = 0 To 8
             output.Add(i, input.LongCount(Function(f) f = i))
         Next

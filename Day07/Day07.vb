@@ -23,14 +23,10 @@
 
     Function Day07_Part1(input As List(Of Integer)) As Integer
         Dim min As Integer = Int32.MaxValue
-        Dim minpos As Integer = -1
         Dim i As Integer
         For i = input.Min To input.Max
             Dim fuel = input.Sum(Function(f) Math.Abs(f - i))
-            If fuel < min Then
-                min = fuel
-                minpos = i
-            End If
+            If fuel < min Then min = fuel
         Next
 
         Return min
@@ -39,17 +35,13 @@
 
     Function Day07_Part2(input As List(Of Integer)) As Integer
         Dim min As Integer = Int32.MaxValue
-        Dim minpos As Integer = -1
         Dim i As Integer
         For i = input.Min To input.Max
             Dim fuel = input.Sum(Function(f)
                                      Dim steps = Math.Abs(f - i)
                                      Return (1 + steps) * steps / 2
                                  End Function)
-            If fuel < min Then
-                min = fuel
-                minpos = i
-            End If
+            If fuel < min Then min = fuel
         Next
 
         Return min
