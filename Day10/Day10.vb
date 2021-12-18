@@ -1,6 +1,5 @@
 ﻿Module Day10
     Sub Day10_main()
-        Dim testinput = Day10_ReadInput("Day10\Day10_test01.txt")
         Dim input = Day10_ReadInput("Day10\Day10_input.txt")
 
         'part1
@@ -10,7 +9,7 @@
         Debug.Assert(New Day10_Line("[<(<(<(<{}))><([]([]()").IllegalScore = 3)
         Debug.Assert(New Day10_Line("<{([([[(<>()){}]>(<<{{").IllegalScore = 25137)
         Debug.Assert(New Day10_Line("[<>({}){}[([])<>]]").IllegalScore = 0)
-        Debug.Assert(Day10_Part1(testinput) = 26397)
+        Debug.Assert(Day10_Part1(Day10_ReadInput("Day10\Day10_test01.txt")) = 26397)
         Console.WriteLine("Day10 Part1: " & Day10_Part1(input))
 
         'part2
@@ -20,7 +19,7 @@
         Debug.Assert(New Day10_Line("{<[[]]>}<{[{[{[]{()[[[]").AutoCompleteScore = 995444)
         Debug.Assert(New Day10_Line("<{([{{}}[<[[[<>{}]]]>[]]").AutoCompleteScore = 294)
         Debug.Assert(New Day10_Line("<{([([[(<>()){}]>(<<{{").AutoCompleteScore = 0)
-        Debug.Assert(Day10_Part2(testinput) = 288957)
+        Debug.Assert(Day10_Part2(Day10_ReadInput("Day10\Day10_test01.txt")) = 288957)
         Console.WriteLine("Day10 Part2: " & Day10_Part2(input))
         '2896974097
     End Sub

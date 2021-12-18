@@ -1,14 +1,13 @@
 ﻿Module Day13
     Sub Day13_main()
-        Dim testinput = New Day13_Input("Day13\Day13_test01.txt")
         Dim input = New Day13_Input("Day13\Day13_input.txt")
 
         'part1
-        Debug.Assert(Day13_Part1(testinput) = 17)
+        Debug.Assert(Day13_Part1(New Day13_Input("Day13\Day13_test01.txt")) = 17)
         Console.WriteLine("Day13 Part1: " & Day13_Part1(input))
 
         'part2
-        'Day13_Part2(testinput)
+        'Day13_Part2(New Day13_Input("Day13\Day13_test01.txt"))
         Console.WriteLine("Day13 Part2: ")
         Day13_Part2(input)
 

@@ -1,10 +1,9 @@
 ﻿Module Day09
     Sub Day09_main()
-        Dim testinput = Day09_ReadInput("Day09\Day09_test01.txt")
         Dim input = Day09_ReadInput("Day09\Day09_input.txt")
 
         'part1-2
-        Debug.Assert(Day09_Part12(testinput).Equals(New Tuple(Of Integer, Integer)(15, 1134)))
+        Debug.Assert(Day09_Part12(Day09_ReadInput("Day09\Day09_test01.txt")).Equals(New Tuple(Of Integer, Integer)(15, 1134)))
         Dim result = Day09_Part12(input)
         Console.WriteLine("Day09 Part1: " & result.Item1)
         Console.WriteLine("Day09 Part2: " & result.Item2)

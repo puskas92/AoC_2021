@@ -1,15 +1,14 @@
 ﻿Module Day06
     Sub Day06_main()
-        Dim testinput = Day06_ReadInput("Day06\Day06_test01.txt")
         Dim input = Day06_ReadInput("Day06\Day06_input.txt")
 
         'part1
-        Debug.Assert(Day06_Part12(18, testinput) = 26)
-        Debug.Assert(Day06_Part12(80, testinput) = 5934)
+        Debug.Assert(Day06_Part12(18, Day06_ReadInput("Day06\Day06_test01.txt")) = 26)
+        Debug.Assert(Day06_Part12(80, Day06_ReadInput("Day06\Day06_test01.txt")) = 5934)
         Console.WriteLine("Day06 Part1: " & Day06_Part12(80, input))
 
         'part2
-        Debug.Assert(Day06_Part12(256, testinput) = 26984457539)
+        Debug.Assert(Day06_Part12(256, Day06_ReadInput("Day06\Day06_test01.txt")) = 26984457539)
         Console.WriteLine("Day06 Part2: " & Day06_Part12(256, input))
 
     End Sub

@@ -1,15 +1,14 @@
 ﻿Module Day08
     Sub Day08_main()
-        Dim testinput = Day08_ReadInput("Day08\Day08_test01.txt")
         Dim input = Day08_ReadInput("Day08\Day08_input.txt")
 
         'part1
-        Debug.Assert(Day08_Part1(testinput) = 26)
+        Debug.Assert(Day08_Part1(Day08_ReadInput("Day08\Day08_test01.txt")) = 26)
         Console.WriteLine("Day08 Part1: " & Day08_Part1(input))
 
         Debug.Assert(input.LongCount(Function(f) f.CountOf1478Signal <> 4) = 0) 'test the each signal line contains each trivial segment - only 1 and 4 is used for determining other segments
         'part2
-        Debug.Assert(Day08_Part2(testinput) = 61229)
+        Debug.Assert(Day08_Part2(Day08_ReadInput("Day08\Day08_test01.txt")) = 61229)
         Console.WriteLine("Day08 Part2: " & Day08_Part2(input))
 
     End Sub

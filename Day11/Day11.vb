@@ -1,18 +1,15 @@
 ﻿Module Day11
     Sub Day11_main()
-        Dim testinput = Day11_ReadInput("Day11\Day11_test01.txt")
-        Dim testinput2 = Day11_ReadInput("Day11\Day11_test02.txt")
         Dim input = Day11_ReadInput("Day11\Day11_input.txt")
 
         'part1
-        Debug.Assert(Day11_Part1(testinput2, 2) = 9)
-        Debug.Assert(Day11_Part1(testinput, 10) = 204)
-        testinput = Day11_ReadInput("Day11\Day11_test01.txt")
-        Debug.Assert(Day11_Part1(testinput, 100) = 1656)
+        Debug.Assert(Day11_Part1(Day11_ReadInput("Day11\Day11_test02.txt"), 2) = 9)
+        Debug.Assert(Day11_Part1(Day11_ReadInput("Day11\Day11_test01.txt"), 10) = 204)
+        Debug.Assert(Day11_Part1(Day11_ReadInput("Day11\Day11_test01.txt"), 100) = 1656)
         Console.WriteLine("Day11 Part1: " & Day11_Part1(input, 100))
 
         'part2
-        Debug.Assert(Day11_Part2(testinput, 100) = 195)
+        Debug.Assert(Day11_Part2(Day11_ReadInput("Day11\Day11_test01.txt"), 0) = 195)
         Console.WriteLine("Day11 Part2: " & Day11_Part2(input, 100))
 
     End Sub

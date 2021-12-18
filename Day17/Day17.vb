@@ -1,10 +1,9 @@
 ﻿Module Day17
     Sub Day17_main()
-        Dim testinput = New Day17_Input("target area: x=20..30, y=-10..-5")
         Dim input = New Day17_Input("target area: x=192..251, y=-89..-59")
 
         'part1
-        Debug.Assert(Day17_Part12(testinput).Equals(New Tuple(Of Integer, Integer)(45, 112)))
+        Debug.Assert(Day17_Part12(New Day17_Input("target area: x=20..30, y=-10..-5")).Equals(New Tuple(Of Integer, Integer)(45, 112)))
         Dim result = Day17_Part12(input)
         Console.WriteLine("Day17 Part1: " & result.Item1)
 

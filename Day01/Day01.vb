@@ -1,13 +1,12 @@
 ﻿Module Day01
     Sub Day01_main()
-        Dim testinput = Day01_ReadInput("Day01\Day01_test01.txt")
         Dim input = Day01_ReadInput("Day01\Day01_input.txt")
         'part1
-        Debug.Assert(Day01_Part1(testinput) = 7)
+        Debug.Assert(Day01_Part1(Day01_ReadInput("Day01\Day01_test01.txt")) = 7)
         Console.WriteLine("Day01 Part1: " & Day01_Part1(input))
 
         'part2
-        Debug.Assert(Day01_Part2(testinput) = 5)
+        Debug.Assert(Day01_Part2(Day01_ReadInput("Day01\Day01_test01.txt")) = 5)
         Console.WriteLine("Day01 Part2: " & Day01_Part2(input))
 
     End Sub

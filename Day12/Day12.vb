@@ -1,20 +1,17 @@
 ﻿Module Day12
     Sub Day12_main()
-        Dim testinput01 = Day12_ReadInput("Day12\Day12_test01.txt")
-        Dim testinput02 = Day12_ReadInput("Day12\Day12_test02.txt")
-        Dim testinput03 = Day12_ReadInput("Day12\Day12_test03.txt")
         Dim input = Day12_ReadInput("Day12\Day12_input.txt")
 
         'part1
-        Debug.Assert(Day12_Part1(testinput01) = 10)
-        Debug.Assert(Day12_Part1(testinput02) = 19)
-        Debug.Assert(Day12_Part1(testinput03) = 226)
+        Debug.Assert(Day12_Part1(Day12_ReadInput("Day12\Day12_test01.txt")) = 10)
+        Debug.Assert(Day12_Part1(Day12_ReadInput("Day12\Day12_test02.txt")) = 19)
+        Debug.Assert(Day12_Part1(Day12_ReadInput("Day12\Day12_test03.txt")) = 226)
         Console.WriteLine("Day12 Part1: " & Day12_Part1(input))
 
         'part2
-        Debug.Assert(Day12_Part2(testinput01) = 36)
-        Debug.Assert(Day12_Part2(testinput02) = 103)
-        Debug.Assert(Day12_Part2(testinput03) = 3509)
+        Debug.Assert(Day12_Part2(Day12_ReadInput("Day12\Day12_test01.txt")) = 36)
+        Debug.Assert(Day12_Part2(Day12_ReadInput("Day12\Day12_test02.txt")) = 103)
+        Debug.Assert(Day12_Part2(Day12_ReadInput("Day12\Day12_test03.txt")) = 3509)
         Console.WriteLine("Day12 Part2: " & Day12_Part2(input))
 
     End Sub

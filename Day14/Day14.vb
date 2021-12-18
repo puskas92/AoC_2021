@@ -1,16 +1,14 @@
 ﻿Module Day14
     Sub Day14_main()
-        Dim testinput = New Day14_Polymer("Day14\Day14_test01.txt")
         Dim input = New Day14_Polymer("Day14\Day14_input.txt")
 
         'part1
-        Debug.Assert(Day14_Part1(testinput) = 1588)
+        Debug.Assert(Day14_Part1(New Day14_Polymer("Day14\Day14_test01.txt")) = 1588)
         Console.WriteLine("Day14 Part1: " & Day14_Part1(input))
 
         'part2
-        testinput = New Day14_Polymer("Day14\Day14_test01.txt")
         input = New Day14_Polymer("Day14\Day14_input.txt")
-        Debug.Assert(Day14_Part2(testinput) = 2188189693529)
+        Debug.Assert(Day14_Part2(New Day14_Polymer("Day14\Day14_test01.txt")) = 2188189693529)
         Console.WriteLine("Day14 Part2: " & Day14_Part2(input))
 
     End Sub

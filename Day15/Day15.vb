@@ -3,15 +3,14 @@ Imports System.Diagnostics.CodeAnalysis
 
 Module Day15
     Sub Day15_main()
-        Dim testinput = Day15_ReadInput("Day15\Day15_test01.txt")
         Dim input = Day15_ReadInput("Day15\Day15_input.txt")
 
         'part1
-        Debug.Assert(Day15_Part1(testinput) = 40)
+        Debug.Assert(Day15_Part1(Day15_ReadInput("Day15\Day15_test01.txt")) = 40)
         Console.WriteLine("Day15 Part1: " & Day15_Part1(input))
 
         'part2
-        Debug.Assert(Day15_Part2(testinput) = 315)
+        Debug.Assert(Day15_Part2(Day15_ReadInput("Day15\Day15_test01.txt")) = 315)
         Console.WriteLine("Day15 Part2: " & Day15_Part2(input))
 
     End Sub
