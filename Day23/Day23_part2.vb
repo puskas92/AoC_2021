@@ -1,28 +1,27 @@
 ﻿Imports System.Collections
 Imports System.Diagnostics.CodeAnalysis
 
-Module Day23
-    Sub Day23_main()
-        Dim input = Day23_ReadInput("Day23\Day23_input.txt")
-        Dim result = Day23_ReadInput("Day23\Day23_result.txt")
+Module Day23_part2
+    Sub Day23_main2()
+        Dim input = Day23_ReadInput2("Day23\Day23_input2.txt")
+        Dim result = Day23_ReadInput2("Day23\Day23_result2.txt")
 
-        'part1
-        Debug.Assert(Day23_Part1(Day23_ReadInput("Day23\Day23_test01.txt"), result) = 12521)
-        Console.WriteLine("Day23 Part1: " & Day23_Part1(input, result))
+        'part2
+        Debug.Assert(Day23_Part2(Day23_ReadInput2("Day23\Day23_test02.txt"), result) = 44169)
+        Console.WriteLine("Day23 Part2: " & Day23_Part2(input, result))
 
-        Day23_main2()
     End Sub
-    Function Day23_ReadInput(inputpath As String) As Day23_State
+    Function Day23_ReadInput2(inputpath As String) As Day23_State2
         Dim sr As New IO.StreamReader(inputpath)
-        Dim Map(4, 12) As Char
+        Dim Map(6, 12) As Char
         Dim i, j As Integer
-        For i = 0 To 4
+        For i = 0 To 6
             For j = 0 To 12
                 Map(i, j) = "#"c
             Next
         Next
 
-            i = 0
+        i = 0
         j = 0
         While (Not sr.EndOfStream)
             Dim line = sr.ReadLine
@@ -35,34 +34,34 @@ Module Day23
         End While
         sr.Close()
 
-        Dim result As New Day23_State
+        Dim result As New Day23_State2
         result.Steps = 0
         result.Map = Map
         Return result
     End Function
 
-    Class Day23_State
-        Public Previous As Day23_State
+    Class Day23_State2
+        Public Previous As Day23_State2
 
         Public Map As Char(,)
         Public Steps As Integer = 0
 
         Public Sub New()
             Previous = Nothing
-            ReDim Map(4, 12)
+            ReDim Map(6, 12)
             Dim i, j As Integer
-            For i = 0 To 4
+            For i = 0 To 6
                 For j = 0 To 12
                     Map(i, j) = "#"c
                 Next
             Next
         End Sub
 
-        Public Sub New(copy As Day23_State)
+        Public Sub New(copy As Day23_State2)
             Previous = copy
-            ReDim Map(4, 12)
+            ReDim Map(6, 12)
             Dim i, j As Integer
-            For i = 0 To 4
+            For i = 0 To 6
                 For j = 0 To 12
                     Map(i, j) = copy.Map(i, j)
                 Next
@@ -84,6 +83,14 @@ Module Day23
             s &= Map(3, 5)
             s &= Map(3, 7)
             s &= Map(3, 9)
+            s &= Map(4, 3)
+            s &= Map(4, 5)
+            s &= Map(4, 7)
+            s &= Map(4, 9)
+            s &= Map(5, 3)
+            s &= Map(5, 5)
+            s &= Map(5, 7)
+            s &= Map(5, 9)
             Return s
         End Function
 
@@ -91,74 +98,74 @@ Module Day23
         '    Return Map.GetHashCode()
         'End Function
 
-        'Public Function CalculateScore()
-        '    Dim xvalue = Steps
-        '    For i = 1 To 3
-        '        For j = 1 To 11
-        '            Dim xc = Map(i, j)
-        '            Select Case xc
-        '                Case "A"c
-        '                    xvalue += 1 * Math.Abs(3 - j)
-        '                    xvalue += 1 * If(j = 3, 0, (1 + If(i = 1, 0, i)))
-        '                Case "B"c
-        '                    xvalue += 10 * Math.Abs(5 - j)
-        '                    xvalue += 10 * If(j = 5, 0, (1 + If(i = 1, 0, i)))
-        '                Case "C"c
-        '                    xvalue += 100 * Math.Abs(7 - j)
-        '                    xvalue += 100 * If(j = 7, 0, (1 + If(i = 1, 0, i)))
-        '                Case "D"c
-        '                    xvalue += 1000 * Math.Abs(9 - j)
-        '                    xvalue += 1000 * If(9 = 3, 0, (1 + If(i = 1, 0, i)))
-        '            End Select
-        '        Next
-        '    Next
-        '    Return xvalue
-        'End Function
+        Public Function CalculateScore()
+            Dim xvalue = Steps
+            For i = 1 To 5
+                For j = 1 To 11
+                    Dim xc = Map(i, j)
+                    Select Case xc
+                        Case "A"c
+                            xvalue += 1 * Math.Abs(3 - j)
+                            xvalue += 1 * If(j = 3, 0, (1 + If(i = 1, 0, i)))
+                        Case "B"c
+                            xvalue += 10 * Math.Abs(5 - j)
+                            xvalue += 10 * If(j = 5, 0, (1 + If(i = 1, 0, i)))
+                        Case "C"c
+                            xvalue += 100 * Math.Abs(7 - j)
+                            xvalue += 100 * If(j = 7, 0, (1 + If(i = 1, 0, i)))
+                        Case "D"c
+                            xvalue += 1000 * Math.Abs(9 - j)
+                            xvalue += 1000 * If(9 = 3, 0, (1 + If(i = 1, 0, i)))
+                    End Select
+                Next
+            Next
+            Return xvalue
+        End Function
     End Class
 
 
-    Class Day23_StateElementComparer
-        Implements IComparer(Of Day23_State)
+    Class Day23_StateElementComparer2
+        Implements IComparer(Of Day23_State2)
 
-        Public Function Compare(<AllowNull> x As Day23_State, <AllowNull> y As Day23_State) As Integer Implements IComparer(Of Day23_State).Compare
+        Public Function Compare(<AllowNull> x As Day23_State2, <AllowNull> y As Day23_State2) As Integer Implements IComparer(Of Day23_State2).Compare
             Dim xvalue = x.Steps
             Dim yvalue = y.Steps
             If x.ToString = y.ToString Then
                 Return xvalue.CompareTo(yvalue)
             Else
 
-                For i = 1 To 3
+                For i = 1 To 5
                     For j = 1 To 11
                         Dim xc = x.Map(i, j)
                         Dim yc = y.Map(i, j)
                         Select Case xc
                             Case "A"c
                                 xvalue += 1 * Math.Abs(3 - j)
-                                xvalue += 1 * If(j = 3, 0, (1 + If(i = 1, 0, i)))
+                                xvalue += 1 * If(j = 3, 0, (1 + If(i = 1, 0, i - 1)))
                             Case "B"c
                                 xvalue += 10 * Math.Abs(5 - j)
-                                xvalue += 10 * If(j = 5, 0, (1 + If(i = 1, 0, i)))
+                                xvalue += 10 * If(j = 5, 0, (1 + If(i = 1, 0, i - 1)))
                             Case "C"c
                                 xvalue += 100 * Math.Abs(7 - j)
-                                xvalue += 100 * If(j = 7, 0, (1 + If(i = 1, 0, i)))
+                                xvalue += 100 * If(j = 7, 0, (1 + If(i = 1, 0, i - 1)))
                             Case "D"c
                                 xvalue += 1000 * Math.Abs(9 - j)
-                                xvalue += 1000 * If(9 = 3, 0, (1 + If(i = 1, 0, i)))
+                                xvalue += 1000 * If(9 = 3, 0, (1 + If(i = 1, 0, i - 1)))
                         End Select
 
                         Select Case yc
                             Case "A"c
                                 yvalue += 1 * Math.Abs(3 - j)
-                                yvalue += 1 * If(j = 3, 0, (1 + If(i = 1, 0, i)))
+                                yvalue += 1 * If(j = 3, 0, (1 + If(i = 1, 0, i - 1)))
                             Case "B"c
                                 yvalue += 10 * Math.Abs(5 - j)
-                                yvalue += 10 * If(j = 5, 0, (1 + If(i = 1, 0, i)))
+                                yvalue += 10 * If(j = 5, 0, (1 + If(i = 1, 0, i - 1)))
                             Case "C"c
                                 yvalue += 100 * Math.Abs(7 - j)
-                                yvalue += 100 * If(j = 7, 0, (1 + If(i = 1, 0, i)))
+                                yvalue += 100 * If(j = 7, 0, (1 + If(i = 1, 0, i - 1)))
                             Case "D"c
                                 yvalue += 1000 * Math.Abs(9 - j)
-                                yvalue += 1000 * If(9 = 3, 0, (1 + If(i = 1, 0, i)))
+                                yvalue += 1000 * If(9 = 3, 0, (1 + If(i = 1, 0, i - 1)))
                         End Select
                     Next
                 Next
@@ -178,12 +185,12 @@ Module Day23
         End Function
     End Class
 
-    Function Day23_Part1(input As Day23_State, result As Day23_State) As Integer
+    Function Day23_Part2(input As Day23_State2, result As Day23_State2) As Integer
         'Dim toCheckList As New SortedSet(Of Day23_State)(New Day23_StateElementComparer)
         'Dim tochecklist As New List(Of Day23_State)
         'Dim tochecklist As New orderedBag
         ' Dim tochecklist As New System.Collections.Specializ
-        Dim toCheckList As New C5.IntervalHeap(Of Day23_State)(New Day23_StateElementComparer)
+        Dim toCheckList As New C5.IntervalHeap(Of Day23_State2)(New Day23_StateElementComparer2)
 
         toCheckList.Add(input)
 
@@ -198,7 +205,7 @@ Module Day23
         Dim part1result As Integer = Integer.MaxValue
         Dim resultstring = result.ToString
 
-        While tochecklist.Count > 0
+        While toCheckList.Count > 0
             'tochecklist.Sort(New Day23_StateElementComparer)
             'Dim min = tochecklist.Min(Function(f) f.CalculateScore)
             'Dim toCheck = tochecklist.Find(Function(f) f.CalculateScore = min)
@@ -227,12 +234,12 @@ Module Day23
             If currenthashstring = resultstring Then
                 'DrawSteps(toCheck)
                 If toCheck.Steps < part1result Then part1result = toCheck.Steps
-                'Continue While
-                Exit While
+                Continue While
+                'Exit While
             End If
             'get all movable objects
             Dim movables As New List(Of Drawing.Point)
-            For i = 1 To 3
+            For i = 1 To 5
                 For j = 1 To 11
                     Dim c = toCheck.Map(i, j)
                     If c = "A"c OrElse c = "B"c OrElse c = "C"c OrElse c = "D"c Then
@@ -261,17 +268,41 @@ Module Day23
 
                             If toCheck.Map(2, 3) = "."c Then
                                 If toCheck.Map(3, 3) = "."c Then
-                                    Dim newstate = New Day23_State(toCheck)
-                                    newstate.Map(3, 3) = "A"c
-                                    newstate.Map(movable.X, movable.Y) = "."c
-                                    newstate.Steps += 1 * (2 + Math.Abs(3 - movable.Y))
-                                    Dim newstatehash = newstate.ToString
-                                    If cache.ContainsKey(newstatehash) AndAlso cache(newstatehash) <= newstate.Steps Then Continue For
-                                    DrawState(newstate)
-                                    toCheckList.Add(newstate)
-                                    Continue While 'this is trivial step, no need to check other steps now
-                                ElseIf toCheck.Map(3, 3) = "A"c Then
-                                        Dim newstate = New Day23_State(toCheck)
+                                    If toCheck.Map(4, 3) = "."c Then
+                                        If toCheck.Map(5, 3) = "."c Then
+                                            Dim newstate = New Day23_State2(toCheck)
+                                            newstate.Map(5, 3) = "A"c
+                                            newstate.Map(movable.X, movable.Y) = "."c
+                                            newstate.Steps += 1 * (4 + Math.Abs(3 - movable.Y))
+                                            Dim newstatehash = newstate.ToString
+                                            If cache.ContainsKey(newstatehash) AndAlso cache(newstatehash) <= newstate.Steps Then Continue For
+                                            DrawState(newstate)
+                                            toCheckList.Add(newstate)
+                                            Continue While 'this is trivial step, no need to check other steps now
+                                        ElseIf toCheck.Map(5, 3) = "A"c Then
+                                            Dim newstate = New Day23_State2(toCheck)
+                                            newstate.Map(4, 3) = "A"c
+                                            newstate.Map(movable.X, movable.Y) = "."c
+                                            newstate.Steps += 1 * (3 + Math.Abs(3 - movable.Y))
+                                            Dim newstatehash = newstate.ToString
+                                            If cache.ContainsKey(newstatehash) AndAlso cache(newstatehash) <= newstate.Steps Then Continue For
+                                            DrawState(newstate)
+                                            toCheckList.Add(newstate)
+                                            Continue While 'this is trivial step, no need to check other steps now
+                                        End If
+                                    ElseIf toCheck.Map(4, 3) = "A"c AndAlso toCheck.Map(5, 3) = "A"c Then
+                                        Dim newstate = New Day23_State2(toCheck)
+                                        newstate.Map(3, 3) = "A"c
+                                        newstate.Map(movable.X, movable.Y) = "."c
+                                        newstate.Steps += 1 * (2 + Math.Abs(3 - movable.Y))
+                                        Dim newstatehash = newstate.ToString
+                                        If cache.ContainsKey(newstatehash) AndAlso cache(newstatehash) <= newstate.Steps Then Continue For
+                                        DrawState(newstate)
+                                        toCheckList.Add(newstate)
+                                        Continue While 'this is trivial step, no need to check other steps now
+                                    End If
+                                ElseIf toCheck.Map(3, 3) = "A"c AndAlso toCheck.Map(4, 3) = "A"c AndAlso toCheck.Map(5, 3) = "A"c Then
+                                    Dim newstate = New Day23_State2(toCheck)
                                     newstate.Map(2, 3) = "A"c
                                     newstate.Map(movable.X, movable.Y) = "."c
                                     newstate.Steps += 1 * (1 + Math.Abs(3 - movable.Y))
@@ -292,17 +323,41 @@ Module Day23
                             End If
                             If toCheck.Map(2, 5) = "."c Then
                                 If toCheck.Map(3, 5) = "."c Then
-                                    Dim newstate = New Day23_State(toCheck)
-                                    newstate.Map(3, 5) = "B"c
-                                    newstate.Map(movable.X, movable.Y) = "."c
-                                    newstate.Steps += 10 * (2 + Math.Abs(5 - movable.Y))
-                                    Dim newstatehash = newstate.ToString
-                                    If cache.ContainsKey(newstatehash) AndAlso cache(newstatehash) <= newstate.Steps Then Continue For
-                                    DrawState(newstate)
-                                    toCheckList.Add(newstate)
-                                    Continue While 'this is trivial step, no need to check other steps now
-                                ElseIf toCheck.Map(3, 5) = "B"c Then
-                                    Dim newstate = New Day23_State(toCheck)
+                                    If toCheck.Map(4, 5) = "."c Then
+                                        If toCheck.Map(5, 5) = "."c Then
+                                            Dim newstate = New Day23_State2(toCheck)
+                                            newstate.Map(5, 5) = "B"c
+                                            newstate.Map(movable.X, movable.Y) = "."c
+                                            newstate.Steps += 10 * (4 + Math.Abs(5 - movable.Y))
+                                            Dim newstatehash = newstate.ToString
+                                            If cache.ContainsKey(newstatehash) AndAlso cache(newstatehash) <= newstate.Steps Then Continue For
+                                            DrawState(newstate)
+                                            toCheckList.Add(newstate)
+                                            Continue While 'this is trivial step, no need to check other steps now
+                                        ElseIf toCheck.Map(5, 5) = "B"c Then
+                                            Dim newstate = New Day23_State2(toCheck)
+                                            newstate.Map(4, 5) = "B"c
+                                            newstate.Map(movable.X, movable.Y) = "."c
+                                            newstate.Steps += 10 * (3 + Math.Abs(5 - movable.Y))
+                                            Dim newstatehash = newstate.ToString
+                                            If cache.ContainsKey(newstatehash) AndAlso cache(newstatehash) <= newstate.Steps Then Continue For
+                                            DrawState(newstate)
+                                            toCheckList.Add(newstate)
+                                            Continue While 'this is trivial step, no need to check other steps now
+                                        End If
+                                    ElseIf toCheck.Map(4, 5) = "B"c AndAlso toCheck.Map(5, 5) = "B"c Then
+                                        Dim newstate = New Day23_State2(toCheck)
+                                        newstate.Map(3, 5) = "B"c
+                                        newstate.Map(movable.X, movable.Y) = "."c
+                                        newstate.Steps += 10 * (2 + Math.Abs(5 - movable.Y))
+                                        Dim newstatehash = newstate.ToString
+                                        If cache.ContainsKey(newstatehash) AndAlso cache(newstatehash) <= newstate.Steps Then Continue For
+                                        DrawState(newstate)
+                                        toCheckList.Add(newstate)
+                                        Continue While 'this is trivial step, no need to check other steps now
+                                    End If
+                                ElseIf toCheck.Map(3, 5) = "B"c AndAlso toCheck.Map(4, 5) = "B"c AndAlso toCheck.Map(5, 5) = "B"c Then
+                                    Dim newstate = New Day23_State2(toCheck)
                                     newstate.Map(2, 5) = "B"c
                                     newstate.Map(movable.X, movable.Y) = "."c
                                     newstate.Steps += 10 * (1 + Math.Abs(5 - movable.Y))
@@ -323,17 +378,41 @@ Module Day23
                             End If
                             If toCheck.Map(2, 7) = "."c Then
                                 If toCheck.Map(3, 7) = "."c Then
-                                    Dim newstate = New Day23_State(toCheck)
-                                    newstate.Map(3, 7) = "C"c
-                                    newstate.Map(movable.X, movable.Y) = "."c
-                                    newstate.Steps += 100 * (2 + Math.Abs(7 - movable.Y))
-                                    Dim newstatehash = newstate.ToString
-                                    If cache.ContainsKey(newstatehash) AndAlso cache(newstatehash) <= newstate.Steps Then Continue For
-                                    DrawState(newstate)
-                                    toCheckList.Add(newstate)
-                                    Continue While 'this is trivial step, no need to check other steps now
-                                ElseIf toCheck.Map(3, 7) = "C"c Then
-                                    Dim newstate = New Day23_State(toCheck)
+                                    If toCheck.Map(4, 7) = "."c Then
+                                        If toCheck.Map(5, 7) = "."c Then
+                                            Dim newstate = New Day23_State2(toCheck)
+                                            newstate.Map(5, 7) = "C"c
+                                            newstate.Map(movable.X, movable.Y) = "."c
+                                            newstate.Steps += 100 * (4 + Math.Abs(7 - movable.Y))
+                                            Dim newstatehash = newstate.ToString
+                                            If cache.ContainsKey(newstatehash) AndAlso cache(newstatehash) <= newstate.Steps Then Continue For
+                                            DrawState(newstate)
+                                            toCheckList.Add(newstate)
+                                            Continue While 'this is trivial step, no need to check other steps now
+                                        ElseIf toCheck.Map(5, 7) = "C"c Then
+                                            Dim newstate = New Day23_State2(toCheck)
+                                            newstate.Map(4, 7) = "C"c
+                                            newstate.Map(movable.X, movable.Y) = "."c
+                                            newstate.Steps += 100 * (3 + Math.Abs(7 - movable.Y))
+                                            Dim newstatehash = newstate.ToString
+                                            If cache.ContainsKey(newstatehash) AndAlso cache(newstatehash) <= newstate.Steps Then Continue For
+                                            DrawState(newstate)
+                                            toCheckList.Add(newstate)
+                                            Continue While 'this is trivial step, no need to check other steps now
+                                        End If
+                                    ElseIf toCheck.Map(4, 7) = "C"c AndAlso toCheck.Map(5, 7) = "C"c Then
+                                        Dim newstate = New Day23_State2(toCheck)
+                                        newstate.Map(3, 7) = "C"c
+                                        newstate.Map(movable.X, movable.Y) = "."c
+                                        newstate.Steps += 100 * (2 + Math.Abs(7 - movable.Y))
+                                        Dim newstatehash = newstate.ToString
+                                        If cache.ContainsKey(newstatehash) AndAlso cache(newstatehash) <= newstate.Steps Then Continue For
+                                        DrawState(newstate)
+                                        toCheckList.Add(newstate)
+                                        Continue While 'this is trivial step, no need to check other steps now
+                                    End If
+                                ElseIf toCheck.Map(3, 7) = "C"c AndAlso toCheck.Map(4, 7) = "C"c AndAlso toCheck.Map(5, 7) = "C"c Then
+                                    Dim newstate = New Day23_State2(toCheck)
                                     newstate.Map(2, 7) = "C"c
                                     newstate.Map(movable.X, movable.Y) = "."c
                                     newstate.Steps += 100 * (1 + Math.Abs(7 - movable.Y))
@@ -354,17 +433,41 @@ Module Day23
                             End If
                             If toCheck.Map(2, 9) = "."c Then
                                 If toCheck.Map(3, 9) = "."c Then
-                                    Dim newstate = New Day23_State(toCheck)
-                                    newstate.Map(3, 9) = "D"c
-                                    newstate.Map(movable.X, movable.Y) = "."c
-                                    newstate.Steps += 1000 * (2 + Math.Abs(9 - movable.Y))
-                                    Dim newstatehash = newstate.ToString
-                                    If cache.ContainsKey(newstatehash) AndAlso cache(newstatehash) <= newstate.Steps Then Continue For
-                                    DrawState(newstate)
-                                    toCheckList.Add(newstate)
-                                    Continue While 'this is trivial step, no need to check other steps now
-                                ElseIf toCheck.Map(3, 9) = "D"c Then
-                                    Dim newstate = New Day23_State(toCheck)
+                                    If toCheck.Map(4, 9) = "."c Then
+                                        If toCheck.Map(5, 9) = "."c Then
+                                            Dim newstate = New Day23_State2(toCheck)
+                                            newstate.Map(5, 9) = "D"c
+                                            newstate.Map(movable.X, movable.Y) = "."c
+                                            newstate.Steps += 1000 * (4 + Math.Abs(9 - movable.Y))
+                                            Dim newstatehash = newstate.ToString
+                                            If cache.ContainsKey(newstatehash) AndAlso cache(newstatehash) <= newstate.Steps Then Continue For
+                                            DrawState(newstate)
+                                            toCheckList.Add(newstate)
+                                            Continue While 'this is trivial step, no need to check other steps now
+                                        ElseIf toCheck.Map(5, 9) = "D"c Then
+                                            Dim newstate = New Day23_State2(toCheck)
+                                            newstate.Map(4, 9) = "D"c
+                                            newstate.Map(movable.X, movable.Y) = "."c
+                                            newstate.Steps += 1000 * (3 + Math.Abs(9 - movable.Y))
+                                            Dim newstatehash = newstate.ToString
+                                            If cache.ContainsKey(newstatehash) AndAlso cache(newstatehash) <= newstate.Steps Then Continue For
+                                            DrawState(newstate)
+                                            toCheckList.Add(newstate)
+                                            Continue While 'this is trivial step, no need to check other steps now
+                                        End If
+                                    ElseIf toCheck.Map(4, 9) = "D"c AndAlso toCheck.Map(5, 9) = "D"c Then
+                                        Dim newstate = New Day23_State2(toCheck)
+                                        newstate.Map(3, 9) = "D"c
+                                        newstate.Map(movable.X, movable.Y) = "."c
+                                        newstate.Steps += 1000 * (2 + Math.Abs(9 - movable.Y))
+                                        Dim newstatehash = newstate.ToString
+                                        If cache.ContainsKey(newstatehash) AndAlso cache(newstatehash) <= newstate.Steps Then Continue For
+                                        DrawState(newstate)
+                                        toCheckList.Add(newstate)
+                                        Continue While 'this is trivial step, no need to check other steps now
+                                    End If
+                                ElseIf toCheck.Map(3, 9) = "D"c AndAlso toCheck.Map(4, 9) = "D"c AndAlso toCheck.Map(5, 9) = "D"c Then
+                                    Dim newstate = New Day23_State2(toCheck)
                                     newstate.Map(2, 9) = "D"c
                                     newstate.Map(movable.X, movable.Y) = "."c
                                     newstate.Steps += 1000 * (1 + Math.Abs(9 - movable.Y))
@@ -380,7 +483,10 @@ Module Day23
                     Select Case toCheck.Map(movable.X, movable.Y)
                         Case "A"c
                             If movable.Y = 3 Then 'it might be already in good position
-                                If movable.X = 3 OrElse toCheck.Map(3, 3) = "A"c Then Continue For
+                                If movable.X = 5 Then Continue For
+                                If movable.X = 4 AndAlso toCheck.Map(5, 3) = "A"c Then Continue For
+                                If movable.X = 3 AndAlso toCheck.Map(5, 3) = "A"c AndAlso toCheck.Map(4, 3) = "A"c Then Continue For
+                                If movable.X = 2 AndAlso toCheck.Map(5, 3) = "A"c AndAlso toCheck.Map(4, 3) = "A"c AndAlso toCheck.Map(3, 3) = "A"c Then Continue For
                             End If
                             If toCheck.Map(1, movable.Y) <> "."c Then Continue For 'something at the exit
                             Dim i As Integer = movable.Y
@@ -388,7 +494,7 @@ Module Day23
                                 i += 1
                                 If toCheck.Map(1, i) <> "."c Then Exit While 'something blocks the way
                                 If i = 3 OrElse i = 5 OrElse i = 7 OrElse i = 9 Then Continue While
-                                Dim newstate = New Day23_State(toCheck)
+                                Dim newstate = New Day23_State2(toCheck)
                                 newstate.Map(1, i) = "A"c
                                 newstate.Map(movable.X, movable.Y) = "."c
                                 newstate.Steps += 1 * (movable.X - 1 + Math.Abs(i - movable.Y))
@@ -402,7 +508,7 @@ Module Day23
                                 i -= 1
                                 If toCheck.Map(1, i) <> "."c Then Exit While 'something blocks the way
                                 If i = 3 OrElse i = 5 OrElse i = 7 OrElse i = 9 Then Continue While
-                                Dim newstate = New Day23_State(toCheck)
+                                Dim newstate = New Day23_State2(toCheck)
                                 newstate.Map(1, i) = "A"c
                                 newstate.Map(movable.X, movable.Y) = "."c
                                 newstate.Steps += 1 * (movable.X - 1 + Math.Abs(i - movable.Y))
@@ -413,7 +519,10 @@ Module Day23
                             End While
                         Case "B"c
                             If movable.Y = 5 Then 'it might be already in good position
-                                If movable.X = 3 OrElse toCheck.Map(3, 5) = "B"c Then Continue For
+                                If movable.X = 5 Then Continue For
+                                If movable.X = 4 AndAlso toCheck.Map(5, 5) = "B"c Then Continue For
+                                If movable.X = 3 AndAlso toCheck.Map(5, 5) = "B"c AndAlso toCheck.Map(4, 5) = "B"c Then Continue For
+                                If movable.X = 2 AndAlso toCheck.Map(5, 5) = "B"c AndAlso toCheck.Map(4, 5) = "B"c AndAlso toCheck.Map(3, 5) = "B"c Then Continue For
                             End If
                             If toCheck.Map(1, movable.Y) <> "."c Then Continue For 'something at the exit
                             Dim i As Integer = movable.Y
@@ -421,7 +530,7 @@ Module Day23
                                 i += 1
                                 If toCheck.Map(1, i) <> "."c Then Exit While 'something blocks the way
                                 If i = 3 OrElse i = 5 OrElse i = 7 OrElse i = 9 Then Continue While
-                                Dim newstate = New Day23_State(toCheck)
+                                Dim newstate = New Day23_State2(toCheck)
                                 newstate.Map(1, i) = "B"c
                                 newstate.Map(movable.X, movable.Y) = "."c
                                 newstate.Steps += 10 * (movable.X - 1 + Math.Abs(i - movable.Y))
@@ -435,7 +544,7 @@ Module Day23
                                 i -= 1
                                 If toCheck.Map(1, i) <> "."c Then Exit While 'something blocks the way
                                 If i = 3 OrElse i = 5 OrElse i = 7 OrElse i = 9 Then Continue While
-                                Dim newstate = New Day23_State(toCheck)
+                                Dim newstate = New Day23_State2(toCheck)
                                 newstate.Map(1, i) = "B"c
                                 newstate.Map(movable.X, movable.Y) = "."c
                                 newstate.Steps += 10 * (movable.X - 1 + Math.Abs(i - movable.Y))
@@ -446,7 +555,10 @@ Module Day23
                             End While
                         Case "C"c
                             If movable.Y = 7 Then 'it might be already in good position
-                                If movable.X = 3 OrElse toCheck.Map(3, 7) = "C"c Then Continue For
+                                If movable.X = 5 Then Continue For
+                                If movable.X = 4 AndAlso toCheck.Map(5, 7) = "C"c Then Continue For
+                                If movable.X = 3 AndAlso toCheck.Map(5, 7) = "C"c AndAlso toCheck.Map(4, 7) = "C"c Then Continue For
+                                If movable.X = 2 AndAlso toCheck.Map(5, 7) = "C"c AndAlso toCheck.Map(4, 7) = "C"c AndAlso toCheck.Map(3, 7) = "C"c Then Continue For
                             End If
                             If toCheck.Map(1, movable.Y) <> "."c Then Continue For 'something at the exit
                             Dim i As Integer = movable.Y
@@ -454,7 +566,7 @@ Module Day23
                                 i += 1
                                 If toCheck.Map(1, i) <> "."c Then Exit While 'something blocks the way
                                 If i = 3 OrElse i = 5 OrElse i = 7 OrElse i = 9 Then Continue While
-                                Dim newstate = New Day23_State(toCheck)
+                                Dim newstate = New Day23_State2(toCheck)
                                 newstate.Map(1, i) = "C"c
                                 newstate.Map(movable.X, movable.Y) = "."c
                                 newstate.Steps += 100 * (movable.X - 1 + Math.Abs(i - movable.Y))
@@ -468,7 +580,7 @@ Module Day23
                                 i -= 1
                                 If toCheck.Map(1, i) <> "."c Then Exit While 'something blocks the way
                                 If i = 3 OrElse i = 5 OrElse i = 7 OrElse i = 9 Then Continue While
-                                Dim newstate = New Day23_State(toCheck)
+                                Dim newstate = New Day23_State2(toCheck)
                                 newstate.Map(1, i) = "C"c
                                 newstate.Map(movable.X, movable.Y) = "."c
                                 newstate.Steps += 100 * (movable.X - 1 + Math.Abs(i - movable.Y))
@@ -479,7 +591,10 @@ Module Day23
                             End While
                         Case "D"c
                             If movable.Y = 9 Then 'it might be already in good position
-                                If movable.X = 3 OrElse toCheck.Map(3, 9) = "D"c Then Continue For
+                                If movable.X = 5 Then Continue For
+                                If movable.X = 4 AndAlso toCheck.Map(5, 9) = "D"c Then Continue For
+                                If movable.X = 3 AndAlso toCheck.Map(5, 9) = "D"c AndAlso toCheck.Map(4, 9) = "D"c Then Continue For
+                                If movable.X = 2 AndAlso toCheck.Map(5, 9) = "D"c AndAlso toCheck.Map(4, 9) = "D"c AndAlso toCheck.Map(3, 9) = "D"c Then Continue For
                             End If
                             If toCheck.Map(1, movable.Y) <> "."c Then Continue For 'something at the exit
                             Dim i As Integer = movable.Y
@@ -487,7 +602,7 @@ Module Day23
                                 i += 1
                                 If toCheck.Map(1, i) <> "."c Then Exit While 'something blocks the way
                                 If i = 3 OrElse i = 5 OrElse i = 7 OrElse i = 9 Then Continue While
-                                Dim newstate = New Day23_State(toCheck)
+                                Dim newstate = New Day23_State2(toCheck)
                                 newstate.Map(1, i) = "D"c
                                 newstate.Map(movable.X, movable.Y) = "."c
                                 newstate.Steps += 1000 * (movable.X - 1 + Math.Abs(i - movable.Y))
@@ -501,7 +616,7 @@ Module Day23
                                 i -= 1
                                 If toCheck.Map(1, i) <> "."c Then Exit While 'something blocks the way
                                 If i = 3 OrElse i = 5 OrElse i = 7 OrElse i = 9 Then Continue While
-                                Dim newstate = New Day23_State(toCheck)
+                                Dim newstate = New Day23_State2(toCheck)
                                 newstate.Map(1, i) = "D"c
                                 newstate.Map(movable.X, movable.Y) = "."c
                                 newstate.Steps += 1000 * (movable.X - 1 + Math.Abs(i - movable.Y))
@@ -519,11 +634,7 @@ Module Day23
         Return part1result
     End Function
 
-    Function Day23_Part2(input As Day23_State, result As Day23_State) As Integer
-        Return 0
-    End Function
-
-    Public Sub DrawState(input As Day23_State)
+    Public Sub DrawState(input As Day23_State2)
         'For i = 0 To 4
         '    Dim s As String = ""
         '    For j = 0 To 12
@@ -534,9 +645,9 @@ Module Day23
         'Console.WriteLine("Score: " & input.Steps)
     End Sub
 
-    Public Sub DrawSteps(input As Day23_State)
+    Public Sub DrawSteps(input As Day23_State2)
         If input.Previous IsNot Nothing Then DrawSteps(input.Previous)
-        For i = 0 To 4
+        For i = 0 To 6
             Dim s As String = ""
             For j = 0 To 12
                 s &= input.Map(i, j)
